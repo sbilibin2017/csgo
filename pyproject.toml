@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "csgo"
+version = "0.1.0"
+description = ""
+authors = ["Sergey Bilibin"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+asyncpg = "^0.29.0"
+asynch = "^0.2.3"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.23"}
+fastapi = {extras = ["all"], version = "^0.104.1"}
+gunicorn = "^21.2.0"
+uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
+rodi = "^2.0.5"
+python-jose = "^3.3.0"
+pillow = "^10.2.0"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "*"
+blue = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.blue]
+line-length = 120
