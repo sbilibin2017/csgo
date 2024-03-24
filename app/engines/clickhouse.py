@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-import logging
 import os
 from typing import NoReturn
 
 from asynch import connect
 from asynch.connection import Connection
 from asynch.cursors import DictCursor
-
 
 PATH_TO_MIGRATIONS_DIR = './app/migrations/clickhouse'
 
@@ -26,6 +24,9 @@ class ClickhouseEngine:
             port=9000,
             database='csgo_database',
         )
+
+    async def disconnect_from_engine(self) -> NoReturn:
+        await self.engine.close()
 
     async def create_tables(self) -> NoReturn:
         for fnm in os.listdir(PATH_TO_MIGRATIONS_DIR):

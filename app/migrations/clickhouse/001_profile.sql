@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS csgo_database.profile (
+    profile_uuid UUID DEFAULT generateUUIDv4 (),
     game_uuid UUID COMMENT 'UUID game',
     
     begin_at DateTime COMMENT 'Game begin at',
@@ -43,11 +44,16 @@ CREATE TABLE IF NOT EXISTS csgo_database.profile (
     h2_timeout_count UInt8 COMMENT 'Round time expired in 2nd half',
     win UInt8 COMMENT 'Win',        
 
-    create_date DateTime DEFAULT NOW() COMMENT 'Дата создания',
-    update_date DateTime COMMENT 'Дата изменения',
-    delete_date DateTime COMMENT 'Дата удаления',
-    is_delete Boolean DEFAULT FALSE COMMENT 'Объект удален',
+    create_date DateTime DEFAULT NOW() COMMENT 'Creation date',
+    update_date DateTime COMMENT 'Updation date',
+    delete_date DateTime COMMENT 'Deletion date',
+    is_delete Boolean DEFAULT FALSE COMMENT 'Object is deleted',
 
+    INDEX idx_year year TYPE bloom_filter GRANULARITY 5,
+    INDEX idx_month month TYPE bloom_filter GRANULARITY 5,
+    INDEX idx_day day TYPE bloom_filter GRANULARITY 5,
+    INDEX idx_weekday weekday TYPE bloom_filter GRANULARITY 5,
+    INDEX idx_hour hour TYPE bloom_filter GRANULARITY 5,
     INDEX idx_map_id map_id TYPE bloom_filter GRANULARITY 5,
     INDEX idx_team_id team_id TYPE bloom_filter GRANULARITY 5,
     INDEX idx_team_opponent_id team_opponent_id TYPE bloom_filter GRANULARITY 5,

@@ -1,4 +1,5 @@
 import logging
+from typing import NoReturn
 
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -17,11 +18,11 @@ class PostgresEngine:
         self.engine = None
         self.async_session = None
 
-    async def connect_to_engine(self):
+    async def connect_to_engine(self) -> NoReturn:
         if self.engine:
             raise ValueError('Engine already exists')
         self.engine = create_async_engine(
-            url=f'postgresql+asyncpg://csgo_user:csgo_password@csgo_postgres:5432/csgo_database',
+            url='postgresql+asyncpg://csgo_user:csgo_password@csgo_postgres:5432/csgo_database',
             echo=False,
             echo_pool=False,
             pool_size=settings.postgres.pool_size,
@@ -35,10 +36,13 @@ class PostgresEngine:
             autoflush=False,
         )
 
-    async def create_tables(self) -> None:
+    async def disconnect_from_engine(self) -> NoReturn:
+        await self.engine.dispose()
+
+    async def create_tables(self) -> NoReturn:
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
 
-    async def drop_tables(self) -> None:
+    async def drop_tables(self) -> NoReturn:
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.drop_all)

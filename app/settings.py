@@ -20,14 +20,14 @@ class PostgresSettings(BaseSettings):
     user: str = 'csgo_user'
     password: str = 'csgo_password'
     database: str = 'csgo_database'
-    host: str = 'localhost'
+    host: str = 'csgo_postgres'
     port: int = 5432
     pool_size: int = 20
     max_overflow: int = 5
 
 
 class ClickhouseSettings(BaseSettings):
-    host: str = 'localhost'
+    host: str = 'csgo_clickhouse'
     user: str = 'csgo_user'
     password: str = 'csgo_password'
     port: int = 9000

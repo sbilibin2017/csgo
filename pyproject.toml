@@ -16,14 +16,16 @@ uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
 rodi = "^2.0.5"
 python-jose = "^3.3.0"
 pillow = "^10.2.0"
+python-dateutil = "^2.9.0.post0"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "*"
 blue = "*"
+isort = "*"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.blue]
-line-length = 120
+line-length = 79
